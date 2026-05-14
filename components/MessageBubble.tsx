@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import CatAvatar from './CatAvatar';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -15,17 +16,18 @@ export default function MessageBubble({ message }: { message: Message }) {
 
   if (isUser) {
     return (
-      <div className="flex justify-end mb-4">
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
         <div
           style={{
-            background: 'linear-gradient(135deg, #6d28d9, #7c3aed)',
+            background: 'linear-gradient(135deg, #5b21b6, #7c3aed)',
             borderRadius: '18px 18px 4px 18px',
-            padding: '10px 16px',
+            padding: '11px 16px',
             maxWidth: '75%',
-            color: '#fff',
+            color: '#ede9fe',
             fontSize: '0.95rem',
-            lineHeight: '1.55',
+            lineHeight: '1.6',
             wordBreak: 'break-word',
+            boxShadow: '0 2px 12px rgba(109, 40, 217, 0.3)',
           }}
         >
           {message.content}
@@ -35,26 +37,30 @@ export default function MessageBubble({ message }: { message: Message }) {
   }
 
   return (
-    <div className="flex justify-start mb-4">
-      <div style={{ maxWidth: '85%' }}>
+    <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', alignItems: 'flex-start' }}>
+      <CatAvatar size={36} />
+      <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
             fontSize: '0.7rem',
             color: '#7c5cbf',
-            marginBottom: '4px',
-            fontWeight: 600,
-            letterSpacing: '0.05em',
+            marginBottom: '6px',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
           }}
         >
-          Morgana
+          <span>✦</span> Morgana
         </div>
         <div
           className="prose-morgana"
           style={{
-            color: '#d4d4e8',
+            color: '#ccc8e8',
             fontSize: '0.95rem',
-            lineHeight: '1.65',
+            lineHeight: '1.7',
           }}
         >
           <ReactMarkdown
@@ -73,10 +79,10 @@ export default function MessageBubble({ message }: { message: Message }) {
                     language={match[1]}
                     PreTag="div"
                     customStyle={{
-                      background: '#1a1a2e',
-                      border: '1px solid #2a2a3a',
-                      borderRadius: '8px',
-                      fontSize: '0.85rem',
+                      background: '#12102a',
+                      border: '1px solid #2a2050',
+                      borderRadius: '10px',
+                      fontSize: '0.84rem',
                       margin: '0.75rem 0',
                     }}
                   >

@@ -8,8 +8,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #0d0d0f;
-  color: #e8e8ea;
+  background: #08080f;
+  color: #e2dff5;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 

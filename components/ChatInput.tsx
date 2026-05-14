@@ -16,9 +16,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
     if (!trimmed || disabled) return;
     onSend(trimmed);
     setText('');
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-    }
+    if (textareaRef.current) textareaRef.current.style.height = 'auto';
   };
 
   const handleKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -35,12 +33,14 @@ export default function ChatInput({ onSend, disabled }: Props) {
     el.style.height = Math.min(el.scrollHeight, 160) + 'px';
   };
 
+  const canSend = !!text.trim() && !disabled;
+
   return (
     <div
       style={{
-        padding: '12px 16px',
-        borderTop: '1px solid #1e1e2e',
-        background: '#0d0d0f',
+        padding: '12px 16px 16px',
+        borderTop: '1px solid #150e2a',
+        background: 'linear-gradient(180deg, #080810 0%, #07040f 100%)',
       }}
     >
       <div
@@ -48,12 +48,14 @@ export default function ChatInput({ onSend, disabled }: Props) {
           display: 'flex',
           alignItems: 'flex-end',
           gap: '10px',
-          background: '#16161f',
-          border: '1px solid #2a2a3a',
-          borderRadius: '14px',
+          background: '#0e0b1e',
+          border: `1px solid ${canSend ? '#4c1d7a' : '#1e1535'}`,
+          borderRadius: '16px',
           padding: '10px 14px',
           maxWidth: '760px',
           margin: '0 auto',
+          boxShadow: canSend ? '0 0 16px rgba(109,40,217,0.12)' : 'none',
+          transition: 'border-color 0.2s, box-shadow 0.2s',
         }}
       >
         <textarea
@@ -62,7 +64,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
           onChange={(e) => setText(e.target.value)}
           onInput={handleInput}
           onKeyDown={handleKey}
-          placeholder="Message Morgana..."
+          placeholder="Ask Morgana anything..."
           rows={1}
           disabled={disabled}
           style={{
@@ -71,7 +73,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
             border: 'none',
             outline: 'none',
             resize: 'none',
-            color: '#e8e8ea',
+            color: '#e2dff5',
             fontSize: '0.95rem',
             lineHeight: '1.5',
             fontFamily: 'inherit',
@@ -81,38 +83,31 @@ export default function ChatInput({ onSend, disabled }: Props) {
         />
         <button
           onClick={handleSend}
-          disabled={!text.trim() || disabled}
+          disabled={!canSend}
           style={{
             flexShrink: 0,
-            width: '34px',
-            height: '34px',
-            borderRadius: '8px',
+            width: '36px',
+            height: '36px',
+            borderRadius: '10px',
             border: 'none',
-            background:
-              !text.trim() || disabled
-                ? '#2a2a3a'
-                : 'linear-gradient(135deg, #6d28d9, #7c3aed)',
-            color: !text.trim() || disabled ? '#555' : '#fff',
-            cursor: !text.trim() || disabled ? 'default' : 'pointer',
+            background: canSend
+              ? 'linear-gradient(135deg, #5b21b6, #7c3aed)'
+              : '#1a1530',
+            color: canSend ? '#e9d5ff' : '#3a3060',
+            cursor: canSend ? 'pointer' : 'default',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all 0.15s',
             fontSize: '1rem',
+            boxShadow: canSend ? '0 2px 10px rgba(109,40,217,0.4)' : 'none',
           }}
         >
           ↑
         </button>
       </div>
-      <p
-        style={{
-          textAlign: 'center',
-          fontSize: '0.7rem',
-          color: '#3a3a5a',
-          marginTop: '8px',
-        }}
-      >
-        Morgana can make mistakes. Use your judgment.
+      <p style={{ textAlign: 'center', fontSize: '0.68rem', color: '#2e2545', marginTop: '8px' }}>
+        Morgana may be wrong. Trust your own judgment.
       </p>
     </div>
   );
